@@ -10,7 +10,7 @@
     <div class="card">
         <div class="card-header">Form Tambah Pasien</div>
         <div class="card-body">
-            <form action="{{ route('periksa.store') }}" method="POST">
+            <form action="{{ route('dokter.periksa.store') }}" method="POST">
                 @csrf
 
                 <div class="mb-3">
@@ -29,7 +29,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-success">Simpan</button>
-                <a href="{{ route('periksa.index') }}" class="btn btn-secondary">Kembali</a>
+                <a href="{{ route('dokter.periksa.index') }}" class="btn btn-secondary">Kembali</a>
             </form>
         </div>
     </div>

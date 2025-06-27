@@ -18,12 +18,16 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'nama',
+        'name',
         'alamat',
         'no_hp',
+        'nik',
         'email',
         'role',
         'password',
+        'poli_id',
+        'spesialis',
+        'no_rm',
     ];
 
     public function periksaSebagaiPasien()
@@ -35,6 +39,24 @@ class User extends Authenticatable
     {
         return $this->hasMany(Periksa::class, 'id_dokter');
     }
+    
+    public function poli()
+    {
+        return $this->belongsTo(Poli::class, 'poli_id');
+    }
+
+    // ========================================================
+    // == TAMBAHKAN FUNGSI RELASI INI ==
+    // ========================================================
+    /**
+     * Mendefinisikan relasi bahwa seorang User (Dokter) memiliki banyak Jadwal Periksa.
+     */
+    public function jadwals()
+    {
+        // 'dokter_id' adalah foreign key di tabel 'jadwal_periksas'
+        return $this->hasMany(JadwalPeriksa::class, 'dokter_id');
+    }
+
 
     /**
      * The attributes that should be hidden for serialization.

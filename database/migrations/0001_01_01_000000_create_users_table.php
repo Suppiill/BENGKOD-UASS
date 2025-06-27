@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('nama',255);
-            $table->string('alamat',255);
-            $table->string('no_hp',50);
+            $table->string('name',255);
+            $table->string('alamat',255); // Bagus, sudah ditambahkan
+            $table->string('no_hp',50);    // Bagus, sudah ditambahkan
+            $table->string('nik', 16)->unique();
             $table->string('email',50)->unique();
-            $table->enum('role', ['dokter', 'pasien'])->default ('pasien');
+            $table->enum('role', ['admin', 'dokter', 'pasien'])->default('pasien');
+            $table->string('spesialis')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
@@ -45,8 +47,17 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::disableForeignKeyConstraints();
+    
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
+
+        // Aktifkan kembali foreign key check
+        Schema::enableForeignKeyConstraints();
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('nik');
+            $table->dropColumn('spesialis');
+        });
     }
 };

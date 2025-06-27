@@ -13,11 +13,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Panggil seeder yang sudah Anda buat
         $this->call(UserSeeder::class);
+
+        // Beri komentar atau hapus baris di bawah ini yang menyebabkan error
+        /*
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+        */
     }
 }

@@ -290,6 +290,12 @@ return [
     |--------------------------------------------------------------------------
     | Menu Items
     |--------------------------------------------------------------------------
+    */
+
+        /*
+    |--------------------------------------------------------------------------
+    | Menu Items
+    |--------------------------------------------------------------------------
     |
     | Here we can modify the sidebar/top navigation of the admin panel.
     |
@@ -299,92 +305,133 @@ return [
     */
 
     'menu' => [
-        // Navbar items:
+        // Navbar items...
         [
-            'type' => 'navbar-search',
-            'text' => 'search',
+            'type'         => 'navbar-search',
+            'text'         => 'search',
             'topnav_right' => true,
         ],
         [
-            'type' => 'fullscreen-widget',
+            'type'         => 'fullscreen-widget',
             'topnav_right' => true,
         ],
 
         // Sidebar items:
+
+        // ==================================================================
+        // BAGIAN MENU UNTUK ADMINISTRATOR (INI YANG BARU)
+        // ==================================================================
         [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
+            'header' => 'MENU ADMINISTRATOR',
+            'can'    => 'is_admin', // Menggunakan Gate yang sudah kita buat
         ],
         [
-            'text' => 'blog',
-            'url' => 'admin/blog',
-            'can' => 'manage-blog',
+            'text'   => 'Dashboard',
+            'route'  => 'admin.dashboard', // Nama rute dashboard admin
+            'icon'   => 'fas fa-fw fa-cogs',
+            'can'    => 'is_admin',
         ],
         [
-            'text' => 'pages',
-            'url' => 'admin/pages',
-            'icon' => 'far fa-fw fa-file',
-            'label' => 4,
-            'label_color' => 'success',
-        ],
-        ['header' => 'Fitur'],
-        [
-            'text' => 'Periksa',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
+            'text'   => 'Manajemen Dokter',
+            'url'    => '#', // Ganti dengan rute Anda
+            'icon'   => 'fas fa-fw fa-user-md',
+            'can'    => 'is_admin',
         ],
         [
-            'text' => 'Riwayat',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
+            'text'   => 'Manajemen Pasien',
+            'url'    => '#', // Ganti dengan rute Anda
+            'icon'   => 'fas fa-fw fa-user-injured',
+            'can'    => 'is_admin',
         ],
         [
-            'text' => 'Logout',
-            'url'  => 'logout',
-            'icon' => 'fas fa-sign-out-alt',
-            'classes' => 'text-danger',
-            'icon_color' => 'danger',
-            'logout' => true,
+            'text'   => 'Manajemen Poli',
+            'url'    => '#', // Ganti dengan rute Anda
+            'icon'   => 'fas fa-fw fa-hospital',
+            'can'    => 'is_admin',
         ],
         [
-            'text' => 'multilevel',
-            'icon' => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                        ],
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-            ],
+            'text'   => 'Manajemen Obat',
+            'url'    => '#', // Ganti dengan rute Anda
+            'icon'   => 'fas fa-fw fa-pills',
+            'can'    => 'is_admin',
         ],
-        
+
+
+        // BAGIAN MENU UNTUK DOKTER (Sudah ada di file Anda)
+        [
+            'header' => 'MENU DOKTER',
+            'can'    => 'is_dokter',
+        ],
+        [
+            'text'   => 'Dashboard',
+            'route'  => 'dokter',
+            'icon'   => 'fas fa-fw fa-user-md',
+            'can'    => 'is_dokter',
+        ],
+        [
+            'text'   => 'Periksa Pasien',
+            'route'  => 'periksa.index',
+            'icon'   => 'fas fa-fw fa-stethoscope',
+            'can'    => 'is_dokter',
+        ],
+        [
+            'text'   => 'Manajemen Obat',
+            'route'  => 'obat.index',
+            'icon'   => 'fas fa-fw fa-tablets',
+            'can'    => 'is_dokter',
+        ],
+        [
+            'text' => 'Jadwal Operasi',
+            'route'  => 'dokter.jadwal.index',
+            'icon' => 'fas fa-fw fa-calendar-alt',
+            'can'  => 'is_dokter',
+        ],
+        [
+            'text' => 'Notifikasi',
+            'route'  => 'dokter.notifikasi.index',
+            'icon' => 'fas fa-fw fa-bell',
+            'can'  => 'is_dokter',
+        ],
+
+
+        // BAGIAN MENU UNTUK PASIEN (Sudah ada di file Anda)
+        [
+            'header' => 'MENU PASIEN',
+            'can'    => 'is_pasien',
+        ],
+        [
+            'text'   => 'Dashboard Saya',
+            'route'  => 'pasien.dashboard',
+            'icon'   => 'fas fa-fw fa-tachometer-alt',
+            'can'    => 'is_pasien',
+        ],
+        [
+            'text'        => 'Daftar Poli',
+            'route'       => 'pasien.poli.daftar', // Gunakan nama route yang tadi dibuat
+            'icon'        => 'fas fa-fw fa-notes-medical',
+            'can'         => 'is-pasien', // Hanya tampilkan untuk pasien
+        ],
+        [
+            'text'   => 'Riwayat Pemeriksaan',
+            'route'  => 'pasien.periksa.index',
+            'icon'   => 'fas fa-fw fa-history',
+            'can'    => 'is_pasien',
+        ],
+        [
+            'text'   => 'Resep Obat Saya',
+            'route'  => 'pasien.obat.index',
+            'icon'   => 'fas fa-fw fa-pills',
+            'can'    => 'is_pasien',
+        ],
+
+        // Logout akan muncul untuk semua role
+        ['header' => 'PENGATURAN AKUN'],
+        [
+            'text'   => 'Logout',
+            'route'  => 'logout',
+            'icon'   => 'fas fa-fw fa-sign-out-alt',
+            // 'method' => 'POST' // Tidak perlu karena kita atur di form
+        ],
     ],
 
     /*

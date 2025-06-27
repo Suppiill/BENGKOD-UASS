@@ -1,49 +1,34 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
     use AuthenticatesUsers;
-
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-
-     protected function redirectTo(){
-        return Auth::user()->role === 'dokter' ? '/dokter' : '/home';
-
-
-    }
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-        $this->middleware('auth')->only('logout');
     }
-    
-
+    protected function authenticated(Request $request, $user) {
+        $role = $user->role; 
+        switch ($role) {
+            case 'admin':
+                return redirect()->route('admin.dashboard');
+            case 'dokter':
+                // 👇 PERBAIKAN ADA DI SINI 👇
+                return redirect()->route('dokter.dashboard'); 
+            case 'pasien':
+                return redirect()->route('pasien.dashboard');
+            default:
+                Auth::logout(); 
+                return redirect('/login')->with('error', 'Anda tidak memiliki hak akses.');
+        }
+    }
+    protected function loggedOut(Request $request)
+    {
+        return redirect('/');
+    }
 }

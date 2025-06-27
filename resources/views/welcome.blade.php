@@ -1,126 +1,91 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sistem Klinik Tongfang</title>
 
-@section('subtitle', 'Dashboard')
-@section('content_header_title', 'Hai Pelanggan')
-@section('content_header_subtitle', 'Selamat datang di Klinik Sehat')
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
-@section('content_body')
-    <div class="row animate__animated animate__fadeIn">
-        <div class="col-md-4 mb-4">
-            <div class="card card-dashboard bg-light-blue">
-                <div class="card-body d-flex justify-content-between align-items-center">
-                    <div>
-                        <h4 class="mb-0">12</h4>
-                        <p class="mb-0">Pasien Hari Ini</p>
-                    </div>
-                    <i class="fas fa-user-injured fa-3x text-white"></i>
-                </div>
-                <a href="{{ url('/riwayat') }}" class="card-footer text-center text-white">
-                    Lihat Riwayat <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
-        </div>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    {{-- Font Awesome untuk ikon --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
-        <div class="col-md-4 mb-4">
-            <div class="card card-dashboard bg-light-green">
-                <div class="card-body d-flex justify-content-between align-items-center">
-                    <div>
-                        <h4 class="mb-0">8</h4>
-                        <p class="mb-0">Pemeriksaan Aktif</p>
-                    </div>
-                    <i class="fas fa-stethoscope fa-3x text-white"></i>
-                </div>
-                <a href="{{ url('/periksa') }}" class="card-footer text-center text-white">
-                    Periksa Sekarang <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-4">
-            <div class="card card-dashboard bg-light-yellow">
-                <div class="card-body d-flex justify-content-between align-items-center">
-                    <div>
-                        <h4 class="mb-0">4</h4>
-                        <p class="mb-0">Obat Hampir Habis</p>
-                    </div>
-                    <i class="fas fa-pills fa-3x text-white"></i>
-                </div>
-                <a href="{{ url('/obat') }}" class="card-footer text-center text-white">
-                    Cek Stok <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="card shadow animate__animated animate__fadeInUp">
-        <div class="card-header bg-primary text-white">
-            <h3 class="card-title"><i class="fas fa-heartbeat"></i> Informasi Umum</h3>
-        </div>
-        <div class="card-body">
-            <p class="lead">Selamat datang di <strong>Klinik </strong>. Gunakan fitur di sidebar untuk mulai mengelola data pasien, pemeriksaan, dan stok obat. Semoga harimu sehat dan lancar! 💙</p>
-        </div>
-    </div>
-@stop
-
-@push('css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
-       /* Kartu dashboard */
-.card-dashboard {
-    border-radius: 1rem;
-    color: white;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-}
-
-.card-dashboard:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 25px rgba(0,0,0,0.15);
-}
-
-.bg-light-blue {
-    background: linear-gradient(135deg, #00c6ff, #0072ff); /* Cerah lebih biru */
-}
-
-.bg-light-green {
-    background: linear-gradient(135deg, #00ff7f, #32cd32); /* Cerah lebih hijau */
-}
-
-.bg-light-yellow {
-    background: linear-gradient(135deg,rgb(217, 211, 20), #ffcc00); /* Cerah lebih kuning */
-}
-
-.card-footer {
-    background: rgba(255,255,255,0.1);
-    border-top: none;
-}
-
-.lead {
-    font-size: 1.1rem;
-}
-
-/* Sidebar: Aktif & hover */
-.nav-sidebar .nav-item > .nav-link.active {
-    background-color: #007bff !important;
-    color: #ffffff !important;
-    font-weight: bold;
-    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
-    border-radius: 0.5rem;
-}
-
-.nav-sidebar .nav-item > .nav-link.active i {
-    color: #ffffff !important;
-}
-
-.nav-sidebar .nav-link:hover {
-    background-color: #0056b3;
-    color: #fff;
-}
+        body {
+            font-family: 'Figtree', sans-serif;
+            background-color: #f4f6f9;
+        }
+        .hero {
+            background: linear-gradient(90deg, rgb(2, 1, 2), rgb(26, 95, 152));
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+        }
+        .card-link .card {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card-link:hover .card {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
     </style>
-@endpush
+</head>
+<body class="antialiased">
+    <div class="container-fluid p-0">
+        
+        <div class="hero">
+            <h1 class="display-4 fw-bold">Selamat Datang di Poliklinik Tongfang</h1>
+            <p class="lead">Layanan kesehatan digital untuk kenyamanan Anda.</p>
+        </div>
 
-@push('js')
-    <script>
-        console.log("Klinik dashboard aktif dengan desain estetik ✨");
-    </script>
-@endpush
+        <div class="container mt-5">
+            <h2 class="text-center mb-4">Silakan masuk sesuai dengan peran Anda</h2>
+            <div class="row justify-content-center">
+
+                <div class="col-md-5 col-lg-4">
+                    <a href="{{ route('login') }}" class="card-link">
+                        <div class="card text-center p-4">
+                            <div class="card-body">
+                                <i class="fas fa-user-injured card-icon text-primary"></i>
+                                <h3 class="card-title">Untuk Pasien</h3>
+                                <p class="card-text text-muted">Akses riwayat kesehatan, resep obat, dan jadwal konsultasi Anda.</p>
+                                <div class="d-grid gap-2">
+                                    <a href="{{ route('login') }}" class="btn btn-primary">Login Pasien</a>
+                                    <a href="{{ route('register') }}" class="btn btn-outline-primary">Daftar Baru</a>
+                                 </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-5 col-lg-4">
+                     <a href="{{ route('login') }}" class="card-link">
+                        <div class="card text-center p-4">
+                            <div class="card-body">
+                                <i class="fas fa-user-md card-icon text-success"></i>
+                                <h3 class="card-title">Untuk Dokter</h3>
+                                <p class="card-text text-muted">Akses dashboard manajemen untuk mengelola data pasien dan pemeriksaan.</p>
+                                <div class="d-grid">
+                                    <a href="{{ route('login') }}" class="btn btn-success">Login Dokter</a>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

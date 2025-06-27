@@ -11,27 +11,21 @@ class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     *
+     * @return void
      */
     public function run(): void
     {
-        User::create([
-            'nama' => 'Dr. Zulkhan',
-            'alamat' => 'Jl Bulustalan No.4',
-            'no_hp' => '085654712561',
-            'email' => 'dokterZulkhan@gmail.com',
-            'role' => 'dokter',
-            'password' => Hash::make('password')
-        ]);
-        User::create([
-            'nama' => 'Dr. Zulkhan',
-            'alamat' => 'Jl Bulustalan No.4',
-            'no_hp' => '085654712561',
-            'email' => 'pasien@gmail.com',
-            'role' => 'pasien',
-            'password' => Hash::make('password')
-        ]);
+        User::updateOrCreate(
+            ['email' => 'admin@gmail.com'], // Kunci pencarian
+            [
+                'name' => 'Administrator',
+                'alamat' => 'Kantor Pusat',
+                'no_hp' => '081234567890',
+                'nik' => '1234567890123456',
+                'role' => 'admin',
+                'password' => Hash::make('password') // Ini akan memperbaiki password yang salah.
+            ]
+        );
     }
-
-    
-    
 }
