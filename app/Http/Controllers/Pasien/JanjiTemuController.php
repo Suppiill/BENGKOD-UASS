@@ -20,7 +20,6 @@ class JanjiTemuController extends Controller
         $pasien = Auth::user(); 
         $daftar_poli = Poli::all();
         
-        // Mengambil riwayat dari tabel periksas, bukan janji_temus
         $riwayat_daftar = Periksa::with(['dokter', 'jadwal.poli'])
                                   ->where('pasien_id', $pasien->id)
                                   ->latest() // Mengurutkan berdasarkan 'created_at' dari yang terbaru
@@ -31,7 +30,6 @@ class JanjiTemuController extends Controller
 
     /**
      * Menyimpan pendaftaran baru langsung sebagai data 'Pemeriksaan'.
-     * Nama fungsi diubah agar sesuai dengan route yang ada.
      */
     public function storePoli(Request $request)
     {
@@ -42,12 +40,15 @@ class JanjiTemuController extends Controller
 
         $jadwal = JadwalPeriksa::find($request->id_jadwal);
         
+        // --- INI BAGIAN YANG DIPERBAIKI ---
+        // Menambahkan kembali 'tgl_periksa' saat membuat data baru
         Periksa::create([
             'pasien_id' => Auth::id(),
             'dokter_id' => $jadwal->dokter_id,
             'jadwal_id' => $jadwal->id,
+            'tgl_periksa' => now(), // Mengisi tanggal periksa dengan waktu saat ini
             'keluhan' => $request->keluhan,
-            'status' => 'menunggu', // Status awal adalah 'menunggu'
+            'status' => 'menunggu',
         ]);
 
         return redirect()->route('pasien.poli.daftar')

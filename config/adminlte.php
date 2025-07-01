@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLsccTE 3',
+    'title' => 'Klinik XYZ',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,8 +63,8 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '<b>Klinik</b> XYZ',
+    'logo_img' => 'images/2.jpg',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',

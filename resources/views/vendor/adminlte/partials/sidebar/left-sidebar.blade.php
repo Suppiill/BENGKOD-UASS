@@ -1,11 +1,23 @@
 <aside class="main-sidebar {{ config('adminlte.classes_sidebar', 'sidebar-dark-primary elevation-4') }}">
 
     {{-- Sidebar brand logo --}}
-    @if(config('adminlte.logo_img_xl'))
-        @include('adminlte::partials.common.brand-logo-xl')
-    @else
-        @include('adminlte::partials.common.brand-logo-xs')
-    @endif
+<a href="{{ url('/') }}" class="brand-link">
+    <i class="fas fa-clinic-medical fa-lg mx-3"></i>
+    <span class="brand-text font-weight-light">Klinik XYZ</span>
+</a>
+{{-- Sidebar User Panel --}}
+<div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center">
+    <div class="image">
+        <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=0d6efd&color=fff&size=100"
+             class="img-circle elevation-2" alt="User Image">
+    </div>
+    <div class="info">
+        <a href="{{ route('dokter.profil') }}" class="d-block text-white fw-semibold">
+            {{ Auth::user()->name }}
+        </a>
+        <small class="text-muted d-block">{{ ucfirst(Auth::user()->role) }}</small>
+    </div>
+</div>
 
     {{-- Sidebar menu --}}
     <div class="sidebar">
@@ -25,25 +37,25 @@
                     <li class="nav-item">
                         <a href="{{ route('admin.dokter.index') }}" class="nav-link {{ request()->routeIs('admin.dokter.*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-user-md"></i>
-                            <p>Kelola Dokter</p>
+                            <p>Dokter</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('admin.pasien.index') }}" class="nav-link {{ request()->routeIs('admin.pasien.*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-user-injured"></i>
-                            <p>Kelola Pasien</p>
+                            <p>Pasien</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('admin.poli.index') }}" class="nav-link {{ request()->routeIs('admin.poli.*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-hospital"></i>
-                            <p>Kelola Poli</p>
+                            <p>Poli</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('admin.obat.index') }}" class="nav-link {{ request()->routeIs('admin.obat.*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-pills"></i>
-                            <p>Kelola Obat</p>
+                            <p>Obat</p>
                         </a>
                     </li>
 
@@ -103,18 +115,6 @@
                     </li>
                 @endif
                 {{-- Akhir dari blok if/elseif --}}
-
-                {{-- Menu Logout untuk semua role --}}
-                <li class="nav-header">PENGATURAN AKUN</li>
-                <li class="nav-item">
-                    <form action="{{ route('logout') }}" method="POST" id="logout-form" class="d-none">
-                        @csrf
-                    </form>
-                    <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    <i class="nav-icon fas fa-sign-out-alt text-danger"></i>
-                    <p class="text-danger">Logout</p>
-                    </a>
-                </li>
             
             </ul>
         </nav>

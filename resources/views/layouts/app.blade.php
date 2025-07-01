@@ -43,7 +43,13 @@
         </a>
     </strong>
 @stop
+@section('css')
+    @stack('css')
+@endsection
 
+@section('js')
+    @stack('js')
+@endsection
 {{-- Add common Javascript/Jquery code --}}
 
 @push('js')
